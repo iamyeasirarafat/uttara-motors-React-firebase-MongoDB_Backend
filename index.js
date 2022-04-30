@@ -12,21 +12,22 @@ app.use(express.json());
 
 
 // mongoDb 
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@uttaramotors.4k8ax.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
-
-// Connect with the Database Server
- const run = async() => {
+const run = async() => {
     try {
         await client.connect();
         const productsData = client.db('UttaraMotors').collection('Products');
+        
 
         //get all products
         app.get('/', async (req, res) => {
             const query ={};
-            const cursor = await productsData.find(query).toArray()
-            res.send(cursor);
+            const cursor =  productsData.find(query)
+            const products = await cursor.toArray();
+            console.log('');
+            res.send(products);
         })
 
     } 
@@ -34,8 +35,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
         
     }
  }
-
-
+ run().catch(console.dir)
 
 
 
