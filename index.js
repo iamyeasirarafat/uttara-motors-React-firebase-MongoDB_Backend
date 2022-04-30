@@ -14,7 +14,9 @@ client.connect(err => {
  console.log('connected Database');
   client.close();
 });
-
+app.get('/', (req, res) => {
+    res.send('this is test that server is runnig')
+})
 app.listen(port , ()=>{
     console.log('listening to the port', port);
 })
