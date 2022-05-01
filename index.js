@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config()
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { ObjectID } = require('bson');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -30,6 +31,13 @@ const run = async() => {
             res.send(products);
         })
 
+        // get a single product by ID
+        app.get('/:id', async (req, res) => {
+            const id = req.params.id;
+            const query ={_id:ObjectID(id)};
+            const product = await productsData.findOne(query);
+            res.send(product);
+        })   
     } 
     finally {
         
