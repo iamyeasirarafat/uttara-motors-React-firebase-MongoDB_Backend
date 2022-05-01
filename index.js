@@ -10,10 +10,7 @@ const port = process.env.PORT || 5000;
 //midlware
 app.use(cors());
 app.use(express.json());
-app.use((req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
-})
+
 
 // mongoDb 
 
@@ -51,7 +48,7 @@ const run = async() => {
             const updated = {
                 $set: product
             }
-           
+           console.log(product);
             const updatedProduct = await productsData.updateOne(filter, updated);
             res.send(updatedProduct);
             
