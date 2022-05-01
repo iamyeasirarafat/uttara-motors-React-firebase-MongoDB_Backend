@@ -37,7 +37,22 @@ const run = async() => {
             const query ={_id:ObjectID(id)};
             const product = await productsData.findOne(query);
             res.send(product);
-        })   
+        }) 
+        
+        
+        // update a product
+        app.put('/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter ={_id:ObjectID(id)};
+            const product = req.body;
+            const updated = {
+                $set: product
+            }
+            console.log(updated);
+            const updatedProduct = await productsData.updateOne(filter, updated);
+            res.send(updatedProduct);
+            
+        })
     } 
     finally {
         
