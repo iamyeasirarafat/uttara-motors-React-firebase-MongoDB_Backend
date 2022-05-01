@@ -10,10 +10,7 @@ const port = process.env.PORT || 5000;
 //midlware
 app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-  });
+
 
 // mongoDb 
 
@@ -30,8 +27,7 @@ const run = async() => {
             const query ={};
             const cursor =  productsData.find(query)
             const products = await cursor.toArray();
-            console.log('');
-            res.send(products);
+             res.send(products);
         })
 
         // get a single product by ID
@@ -48,11 +44,11 @@ const run = async() => {
             const id = req.params.id;
             const filter ={_id:ObjectID(id)};
             const product = req.body;
+            const options = { upsert: true };
             const updated = {
                 $set: product
             }
-           console.log(product);
-            const updatedProduct = await productsData.updateOne(filter, updated);
+           const updatedProduct = await productsData.updateOne(filter, updated, options);
             res.send(updatedProduct);
             
         })
