@@ -52,6 +52,14 @@ const run = async() => {
             res.send(updatedProduct);
             
         })
+
+
+        //POST a product
+        app.post('/', async (req, res) => {
+            const product = req.body;
+            const result = await productsData.insertOne(product);
+            res.send(result);
+        })
     } 
     finally {
         
