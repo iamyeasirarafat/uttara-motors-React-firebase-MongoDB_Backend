@@ -72,7 +72,7 @@ const run = async() => {
         //get  products by user id
         app.get('/myitems/:uid', async (req, res) => {
             const uid = req.params.uid;
-            console.log(uid);
+            
             const query ={uid:uid};
             const cursor =  productsData.find(query)
             const products = await cursor.toArray();
