@@ -60,6 +60,14 @@ const run = async() => {
             const result = await productsData.insertOne(product);
             res.send(result);
         })
+
+        // DELETE a product
+        app.delete('/:id', async (req, res) => {
+            const id = req.params.id;
+            const query ={_id:ObjectID(id)};
+            const result = await productsData.deleteOne(query);
+            res.send(result);
+        })
     } 
     finally {
         
